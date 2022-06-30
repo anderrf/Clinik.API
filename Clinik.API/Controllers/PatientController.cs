@@ -20,10 +20,10 @@ namespace Clinik.API.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
-        public Patient Get()
+        [HttpGet("")]
+        public IActionResult Get()
         {
-            return new Patient(DateTime.Parse("2002-09-07"), "Anderson", 'M', 46.00f, 1.6f);
+            return Ok(new Patient(1, DateTime.Parse("2002-09-07"), "Anderson", 'M', 46.00f, 1.6f));
         }
     }
 }

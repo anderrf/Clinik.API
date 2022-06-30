@@ -2,32 +2,19 @@ using System;
 
 namespace Clinik.API.Entities
 {
+    [Serializable]
     public class Bmi
     {
 
-        private float weight;
-        private float height;
+        public float weight {get; set;}
+        public float height {get; set;}
+
+        public Bmi(){}
 
         public Bmi(float weight, float height)
         {
             this.weight = weight;
             this.height = height;
-        }
-
-        public void setWeight(float weight){
-            this.weight = weight;
-        }
-
-        public float getWeight(){
-            return this.weight;
-        }
-
-        public void setHeight(float height){
-            this.height = height;
-        }
-
-        public float getHeight(){
-            return this.height;
         }
 
         public float calculateBmi(){
