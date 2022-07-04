@@ -23,8 +23,9 @@ namespace Clinik.API.Entities
             this.patientBmi = new Bmi(weight, height);
         }
 
-        public float calculateBmi(){
-            return this.patientBmi.calculateBmi();
+        public float CalculateBmi()
+        {
+            return this.patientBmi.CalculateBmi();
         }
 
     }

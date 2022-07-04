@@ -17,7 +17,8 @@ namespace Clinik.API.Entities
             this.height = height;
         }
 
-        public float calculateBmi(){
+        public float CalculateBmi()
+        {
             return (this.weight / (this.height * this.height));
         }
         
