@@ -1,4 +1,4 @@
-using Clinik.API.Repositories;
+using Clinik.Infra.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;

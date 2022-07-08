@@ -1,5 +1,5 @@
-using Clinik.API.Entities;
-using Clinik.API.Repositories;
+using Clinik.Domain.Entities;
+using Clinik.Infra.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -23,7 +23,7 @@ namespace Clinik.API.Controllers
             this.clinicRepository = clinicRepository;
         }
 
-        [HttpGet]
+        [HttpGet("/Clinics")]
         public IActionResult GetAllClinics()
         {
             List<Clinic> clinics = clinicRepository.GetAllClinics();

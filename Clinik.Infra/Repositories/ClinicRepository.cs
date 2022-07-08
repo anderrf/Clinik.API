@@ -1,7 +1,9 @@
+﻿using System;
 using System.Collections.Generic;
-using Clinik.API.Entities;
+using System.Text;
+using Clinik.Domain.Entities;
 
-namespace Clinik.API.Repositories
+namespace Clinik.Infra.Repositories
 {
     public class ClinicRepository : IClinicRepository
     {
@@ -9,7 +11,7 @@ namespace Clinik.API.Repositories
 
         public void AddClinic(Clinic clinic)
         {
-            if(clinic == null)
+            if (clinic == null)
             {
                 return;
             }
@@ -28,7 +30,7 @@ namespace Clinik.API.Repositories
         public void UpdateClinicById(int clinicId, Clinic clinic)
         {
             int clinicIndex = clinicList.FindIndex(clinic => clinic.clinicId == clinicId);
-            if(clinicIndex < 0)
+            if (clinicIndex < 0)
             {
                 return;
             }
@@ -38,7 +40,7 @@ namespace Clinik.API.Repositories
         public void DeleteClinicById(int clinicId)
         {
             int clinicIndex = clinicList.FindIndex(clinic => clinic.clinicId == clinicId);
-            if(clinicIndex < 0)
+            if (clinicIndex < 0)
             {
                 return;
             }
@@ -48,7 +50,7 @@ namespace Clinik.API.Repositories
         public void AddPatient(int clinicId, Patient patient)
         {
             int clinicIndex = GetClinicIndexByClinicId(clinicId);
-            if(clinicIndex < 0)
+            if (clinicIndex < 0)
             {
                 return;
             }
@@ -58,7 +60,7 @@ namespace Clinik.API.Repositories
         public Patient GetPatientByClinicIdAndPatientId(int clinicId, int patientId)
         {
             int clinicIndex = GetClinicIndexByClinicId(clinicId);
-            if(GetClinicIndexByClinicId(clinicId) < 0)
+            if (GetClinicIndexByClinicId(clinicId) < 0)
             {
                 return null;
             }
@@ -68,7 +70,7 @@ namespace Clinik.API.Repositories
         public List<Patient> GetAllPatientsByClinicId(int clinicId)
         {
             int clinicIndex = GetClinicIndexByClinicId(clinicId);
-            if(GetClinicIndexByClinicId(clinicId) < 0)
+            if (GetClinicIndexByClinicId(clinicId) < 0)
             {
                 return null;
             }
@@ -78,7 +80,7 @@ namespace Clinik.API.Repositories
         public void UpdatePatientById(int clinicId, int patientId, Patient patient)
         {
             int clinicIndex = GetClinicIndexByClinicId(clinicId);
-            if(GetClinicIndexByClinicId(clinicId) < 0)
+            if (GetClinicIndexByClinicId(clinicId) < 0)
             {
                 return;
             }
@@ -88,7 +90,7 @@ namespace Clinik.API.Repositories
         public void DeletePatientById(int clinicId, int patientId)
         {
             int clinicIndex = GetClinicIndexByClinicId(clinicId);
-            if(GetClinicIndexByClinicId(clinicId) < 0)
+            if (GetClinicIndexByClinicId(clinicId) < 0)
             {
                 return;
             }

@@ -1,15 +1,17 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace Clinik.API.Entities
+namespace Clinik.Domain.Entities
 {
     [Serializable]
     public class Bmi
     {
 
-        public float weight {get; set;}
-        public float height {get; set;}
+        public float weight { get; set; }
+        public float height { get; set; }
 
-        public Bmi(){}
+        public Bmi() { }
 
         public Bmi(float weight, float height)
         {
@@ -21,6 +23,6 @@ namespace Clinik.API.Entities
         {
             return (this.weight / (this.height * this.height));
         }
-        
+
     }
 }

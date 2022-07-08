@@ -1,11 +1,13 @@
+﻿using System;
 using System.Collections.Generic;
-using Clinik.API.Entities;
+using System.Text;
+using Clinik.Domain.Entities;
 
-namespace Clinik.API.Repositories
+namespace Clinik.Infra.Repositories
 {
     public interface IClinicRepository
     {
-        
+
         public void AddClinic(Clinic clinic);
 
         public Clinic GetClinicById(int clinicId);

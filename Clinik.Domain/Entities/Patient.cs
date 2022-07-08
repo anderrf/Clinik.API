@@ -1,18 +1,20 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace Clinik.API.Entities
+namespace Clinik.Domain.Entities
 {
     [Serializable]
     public class Patient
     {
 
-        public int patientId {get; set;}
-        public DateTime patientBirthdate {get; set;}
-        public string patientName {get; set;}
-        public char patientSex {get; set;}
-        public Bmi patientBmi {get; set;}
+        public int patientId { get; set; }
+        public DateTime patientBirthdate { get; set; }
+        public string patientName { get; set; }
+        public char patientSex { get; set; }
+        public Bmi patientBmi { get; set; }
 
-        public Patient(){}
+        public Patient() { }
 
         public Patient(int patientId, DateTime patientBirthdate, string patientName, char patientSex, float weight, float height)
         {

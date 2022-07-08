@@ -1,18 +1,19 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace Clinik.API.Entities
+namespace Clinik.Domain.Entities
 {
     [Serializable]
     public class Clinic
     {
-        
-        public int clinicId {get; set;}
-        public string clinicName {get; set;}
-        public string clinicAddress {get; set;}
-        public List<Patient> patients {get; set;}
 
-        public Clinic(){}
+        public int clinicId { get; set; }
+        public string clinicName { get; set; }
+        public string clinicAddress { get; set; }
+        public List<Patient> patients { get; set; }
+
+        public Clinic() { }
 
         public Clinic(int clinicId, string clinicName, string clinicAddress)
         {
@@ -24,11 +25,11 @@ namespace Clinik.API.Entities
 
         public void SetSinglePatient(Patient patient)
         {
-            if(patient == null)
+            if (patient == null)
             {
                 return;
             }
-            if(this.patients == null)
+            if (this.patients == null)
             {
                 this.patients = new List<Patient>();
             }
@@ -48,7 +49,7 @@ namespace Clinik.API.Entities
         public void UpdatePatient(int patientId, Patient patient)
         {
             int patientIndex = this.patients.FindIndex(searchedPatient => searchedPatient.patientId == patientId);
-            if(patientIndex < 0)
+            if (patientIndex < 0)
             {
                 return;
             }
