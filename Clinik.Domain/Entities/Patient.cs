@@ -8,7 +8,7 @@ namespace Clinik.Domain.Entities
     public class Patient
     {
 
-        public int patientId { get; set; }
+        public int? patientId { get; set; }
         public DateTime patientBirthdate { get; set; }
         public string patientName { get; set; }
         public char patientSex { get; set; }

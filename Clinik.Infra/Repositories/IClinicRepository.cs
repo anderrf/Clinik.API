@@ -8,25 +8,25 @@ namespace Clinik.Infra.Repositories
     public interface IClinicRepository
     {
 
-        public void AddClinic(Clinic clinic);
+        public Clinic AddClinic(Clinic clinic);
 
         public Clinic GetClinicById(int clinicId);
 
         public List<Clinic> GetAllClinics();
 
-        public void UpdateClinicById(int clinicId, Clinic clinic);
+        public Clinic UpdateClinicById(int clinicId, Clinic clinic);
 
-        public void DeleteClinicById(int clinicId);
+        public bool DeleteClinicById(int clinicId);
 
-        public void AddPatient(int clinicId, Patient patient);
+        public Patient AddPatient(int clinicId, Patient patient);
 
         public Patient GetPatientByClinicIdAndPatientId(int clinicId, int patientId);
 
         public List<Patient> GetAllPatientsByClinicId(int clinicId);
 
-        public void UpdatePatientById(int clinicId, int patientId, Patient patient);
+        public Patient UpdatePatientById(int clinicId, int patientId, Patient patient);
 
-        public void DeletePatientById(int clinicId, int patientId);
+        public bool DeletePatientById(int clinicId, int patientId);
 
     }
 }

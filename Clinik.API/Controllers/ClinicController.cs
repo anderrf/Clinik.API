@@ -40,7 +40,16 @@ namespace Clinik.API.Controllers
         [HttpPost]
         public IActionResult AddClinic([FromBody] Clinic clinic)
         {
-            this.clinicRepository.AddClinic(clinic);
+            Clinic newClinic = this.clinicRepository.AddClinic(clinic);
+            if(newClinic == null)
+            {
+                return NotFound();
+            }
+            clinic.clinicId = newClinic.clinicId;
+            if(!clinic.Equals(newClinic))
+            {
+                return NotFound();
+            }
             return Ok();
         }
 
@@ -48,13 +57,13 @@ namespace Clinik.API.Controllers
         public IActionResult GetClinicById([FromRoute] int clinicId)
         {
             Clinic clinic = this.clinicRepository.GetClinicById(clinicId);
-            if(clinic != null)
+            if(clinic == null)
             {
-                return Ok(clinic);
+                return NotFound();
             }
             else
             {
-                return NotFound();
+                return Ok(clinic);
             }
         }
 
@@ -62,14 +71,18 @@ namespace Clinik.API.Controllers
         public IActionResult UpdateClinicById([FromRoute] int clinicId, [FromBody] Clinic clinic)
         {
             Clinic searchedClinic = this.clinicRepository.GetClinicById(clinicId);
-            if(searchedClinic != null)
+            if(searchedClinic == null)
             {
-                this.clinicRepository.UpdateClinicById(clinicId, clinic);
-                return Ok();
+                return NotFound();
             }
             else
             {
-                return NotFound();
+                Clinic updatedClinic = this.clinicRepository.UpdateClinicById(clinicId, clinic);
+                if(updatedClinic == null)
+                {
+                    return NotFound();
+                }
+                return Ok();
             }
         }
 
@@ -77,14 +90,17 @@ namespace Clinik.API.Controllers
         public IActionResult DeleteClinicById([FromRoute] int clinicId)
         {
             Clinic searchedClinic = this.clinicRepository.GetClinicById(clinicId);
-            if(searchedClinic != null)
+            if(searchedClinic == null)
             {
-                this.clinicRepository.DeleteClinicById(clinicId);
-                return Ok();
+                return NotFound();
             }
             else
             {
-                return NotFound();
+                if(!this.clinicRepository.DeleteClinicById(clinicId))
+                {
+                    return NotFound();
+                }
+                return Ok();
             }
         }
 
@@ -95,7 +111,12 @@ namespace Clinik.API.Controllers
             {
                 return NotFound();
             }
-            this.clinicRepository.AddPatient(clinicId, patient);
+            Patient newPatient = this.clinicRepository.AddPatient(clinicId, patient);
+            patient.patientId = newPatient.patientId;
+            if(!patient.Equals(newPatient))
+            {
+                return NotFound();
+            }
             return Ok();
         }
 
@@ -114,13 +135,13 @@ namespace Clinik.API.Controllers
         public IActionResult GetAllPatientsByClinicId([FromRoute] int clinicId)
         {
             List<Patient> patients = clinicRepository.GetAllPatientsByClinicId(clinicId);
-            if(patients != null)
+            if(patients == null)
             {
-                return Ok(patients);
+                return NotFound();
             }
             else
             {
-                return NotFound();
+                return Ok(patients);
             }
         }
 
@@ -132,7 +153,7 @@ namespace Clinik.API.Controllers
             {
                 return NotFound();
             }
-            this.clinicRepository.UpdatePatientById(clinicId, patientId, patient);
+            Patient updatedPatient = this.clinicRepository.UpdatePatientById(clinicId, patientId, patient);
             return Ok();
         }
 
@@ -144,7 +165,10 @@ namespace Clinik.API.Controllers
             {
                 return NotFound();
             }
-            this.clinicRepository.DeletePatientById(clinicId, patientId);
+            if(!this.clinicRepository.DeletePatientById(clinicId, patientId))
+            {
+                return NotFound();
+            }
             return Ok();
         }
 

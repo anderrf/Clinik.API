@@ -8,7 +8,7 @@ namespace Clinik.Domain.Entities
     public class Clinic
     {
 
-        public int clinicId { get; set; }
+        public int? clinicId { get; set; }
         public string clinicName { get; set; }
         public string clinicAddress { get; set; }
         public List<Patient> patients { get; set; }
