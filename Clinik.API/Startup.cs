@@ -1,3 +1,4 @@
+using Clinik.Infra.Database;
 using Clinik.Infra.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -17,18 +18,28 @@ namespace Clinik.API
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public IConfiguration Configuration { get; }
+        public IWebHostEnvironment Env { get; }
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddEnvironmentVariables();
+            Configuration = builder.Build();
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddTransient<IClinicRepository, ClinicRepository>();
+            services.AddOptions();
+            services.Configure<MongoSettings>(Configuration.GetSection("MongoSettings"));
+            services.AddSingleton<IMongoDBContext, MongoClinicDBContext>();
+            services.AddTransient<IClinicRepository, MongoRepository>();
             services.AddSwaggerGen();
             services.AddSwaggerGen(c =>
             {

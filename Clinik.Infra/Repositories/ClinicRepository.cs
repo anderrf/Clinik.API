@@ -17,13 +17,13 @@ namespace Clinik.Infra.Repositories
             {
                 return null;
             }
-            clinic.clinicId = ++clinicIndex;
+            clinic._id = ++clinicIndex;
             clinicList.Add(clinic);
             return clinicList[clinicList.Count - 1];
         }
         public Clinic GetClinicById(int clinicId)
         {
-            return clinicList.Find(clinic => clinic.clinicId == clinicId) ?? null;
+            return clinicList.Find(clinic => clinic._id == clinicId) ?? null;
         }
 
         public List<Clinic> GetAllClinics()
@@ -38,14 +38,14 @@ namespace Clinik.Infra.Repositories
             {
                 return null;
             }
-            clinic.clinicId = clinicId;
+            clinic._id = clinicId;
             clinicList[clinicIndex] = clinic;
             return clinicList[clinicIndex];
         }
 
         public bool DeleteClinicById(int clinicId)
         {
-            int clinicIndex = clinicList.FindIndex(clinic => clinic.clinicId == clinicId);
+            int clinicIndex = clinicList.FindIndex(clinic => clinic._id == clinicId);
             if (clinicIndex < 0)
             {
                 return false;
@@ -62,9 +62,9 @@ namespace Clinik.Infra.Repositories
             {
                 return null;
             }
-            patient.patientId = ++patientIndex;
+            patient._id = ++patientIndex;
             clinicList[clinicIndex].SetSinglePatient(patient);
-            return clinicList[clinicIndex].GetPatientById((int)patient.patientId);
+            return clinicList[clinicIndex].GetPatientById((int)patient._id);
         }
 
         public Patient GetPatientByClinicIdAndPatientId(int clinicId, int patientId)
@@ -94,7 +94,7 @@ namespace Clinik.Infra.Repositories
             {
                 return null;
             }
-            patient.patientId = patientId;
+            patient._id = patientId;
             clinicList[clinicIndex].UpdatePatient(patientId, patient);
             return clinicList[clinicIndex].GetPatientById(patientId);
         }
@@ -112,7 +112,7 @@ namespace Clinik.Infra.Repositories
 
         private int GetClinicIndexByClinicId(int clinicId)
         {
-            return clinicList.FindIndex(clinic => clinic.clinicId == clinicId);
+            return clinicList.FindIndex(clinic => clinic._id == clinicId);
         }
 
     }

@@ -8,7 +8,7 @@ namespace Clinik.Domain.Entities
     public class Clinic
     {
 
-        public int? clinicId { get; set; }
+        public int? _id { get; set; }
         public string clinicName { get; set; }
         public string clinicAddress { get; set; }
         public List<Patient> patients { get; set; }
@@ -17,7 +17,7 @@ namespace Clinik.Domain.Entities
 
         public Clinic(int clinicId, string clinicName, string clinicAddress)
         {
-            this.clinicId = clinicId;
+            this._id = clinicId;
             this.clinicName = clinicName;
             this.clinicAddress = clinicAddress;
             this.patients = new List<Patient>();
@@ -38,7 +38,7 @@ namespace Clinik.Domain.Entities
 
         public Patient GetPatientById(int patientId)
         {
-            return this.patients.Find(patient => patient.patientId == patientId) ?? null;
+            return this.patients.Find(patient => patient._id == patientId) ?? null;
         }
 
         public List<Patient> GetAllPatients()
@@ -48,7 +48,7 @@ namespace Clinik.Domain.Entities
 
         public void UpdatePatient(int patientId, Patient patient)
         {
-            int patientIndex = this.patients.FindIndex(searchedPatient => searchedPatient.patientId == patientId);
+            int patientIndex = this.patients.FindIndex(searchedPatient => searchedPatient._id == patientId);
             if (patientIndex < 0)
             {
                 return;
@@ -59,7 +59,7 @@ namespace Clinik.Domain.Entities
         public void DeletePatientById(int patientId)
         {
             this.patients.RemoveAt(
-                this.patients.FindIndex(searchedPatient => searchedPatient.patientId == patientId)
+                this.patients.FindIndex(searchedPatient => searchedPatient._id == patientId)
             );
         }
 

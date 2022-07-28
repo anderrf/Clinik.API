@@ -8,7 +8,7 @@ namespace Clinik.Domain.Entities
     public class Patient
     {
 
-        public int? patientId { get; set; }
+        public int? _id { get; set; }
         public DateTime patientBirthdate { get; set; }
         public string patientName { get; set; }
         public char patientSex { get; set; }
@@ -18,7 +18,7 @@ namespace Clinik.Domain.Entities
 
         public Patient(int patientId, DateTime patientBirthdate, string patientName, char patientSex, float weight, float height)
         {
-            this.patientId = patientId;
+            this._id = patientId;
             this.patientBirthdate = patientBirthdate;
             this.patientName = patientName;
             this.patientSex = patientSex;

@@ -45,11 +45,6 @@ namespace Clinik.API.Controllers
             {
                 return NotFound();
             }
-            clinic.clinicId = newClinic.clinicId;
-            if(!clinic.Equals(newClinic))
-            {
-                return NotFound();
-            }
             return Ok();
         }
 
@@ -112,7 +107,7 @@ namespace Clinik.API.Controllers
                 return NotFound();
             }
             Patient newPatient = this.clinicRepository.AddPatient(clinicId, patient);
-            patient.patientId = newPatient.patientId;
+            patient._id = newPatient._id;
             if(!patient.Equals(newPatient))
             {
                 return NotFound();
