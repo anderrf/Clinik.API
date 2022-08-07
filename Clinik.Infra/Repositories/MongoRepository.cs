@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Clinik.Domain.Entities;
 using Clinik.Infra.Database;
@@ -22,6 +23,7 @@ namespace Clinik.Infra.Repositories
         {
             clinic.patients.RemoveAll(patient => true);
             IMongoCollection<Clinic> dbClinic = this.GetClinicsFromDatabase();
+            clinic._id = this.GetAutoIncrementFromClinicCounter("clinicId");
             dbClinic.InsertOne(clinic);
             return this.GetClinicById((int)clinic._id);
         }
@@ -83,6 +85,7 @@ namespace Clinik.Infra.Repositories
             {
                 return null;
             }
+            patient._id = this.GetAutoIncrementFromClinicCounter("patientId");
             clinicToInsert.SetSinglePatient(patient);
             IMongoCollection<Clinic> dbClinic = this.GetClinicsFromDatabase();
             Clinic clinicAfterInsert = dbClinic.FindOneAndReplace<Clinic>(clinic => clinic._id == clinicId, clinicToInsert);
@@ -126,9 +129,22 @@ namespace Clinik.Infra.Repositories
             return this.GetPatientByClinicIdAndPatientId(clinicId, patientId) == null;
         }
 
-        public IMongoCollection<Clinic> GetClinicsFromDatabase()
+        private IMongoCollection<Clinic> GetClinicsFromDatabase()
         {
             return this._dbContext.GetCollection<Clinic>("Clinic");
+        }
+
+        private int GetAutoIncrementFromClinicCounter(string property)
+        {
+            IMongoCollection<ClinicCounter> collection = this._dbContext.GetCollection<ClinicCounter>("ClinicCounter");
+            ClinicCounter counter = collection.Find<ClinicCounter>(count => true).First<ClinicCounter>();
+            counter.GetType().GetProperty(property).SetValue
+            (
+                counter,
+                (Convert.ToInt32(counter.GetType().GetProperty(property).GetValue(counter)) + 1)
+            );
+            collection.FindOneAndReplace<ClinicCounter>(count => true, counter);
+            return Convert.ToInt32(counter.GetType().GetProperty(property).GetValue(counter));
         }
     }
 }
